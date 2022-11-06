@@ -38,9 +38,8 @@ namespace Microsoft.PowerPlatform.Formulas.Tools.SourceTransforms
         public void ApplyAfterRead(BlockNode control, bool inResponsiveContext = false)
         {
             var controlTemplateName = control.Name?.Kind?.TypeName ?? string.Empty;
-            var controlTemplateVariantName = control.Name?.Kind?.OptionalVariant ?? string.Empty;
 
-            var childResponsiveContext = DynamicProperties.AddsChildDynamicProperties(controlTemplateName, controlTemplateVariantName);
+            var childResponsiveContext = DynamicProperties.AddsChildDynamicProperties(controlTemplateName);
             foreach (var child in control.Children)
             {
                 ApplyAfterRead(child, childResponsiveContext);
@@ -60,8 +59,7 @@ namespace Microsoft.PowerPlatform.Formulas.Tools.SourceTransforms
         public void ApplyBeforeWrite(BlockNode control, bool inResponsiveContext = false)
         {
             var controlTemplateName = control.Name?.Kind?.TypeName ?? string.Empty;
-            var controlTemplateVariantName = control.Name?.Kind?.OptionalVariant ?? string.Empty;
-            var childResponsiveContext = DynamicProperties.AddsChildDynamicProperties(controlTemplateName, controlTemplateVariantName);
+            var childResponsiveContext = DynamicProperties.AddsChildDynamicProperties(controlTemplateName);
 
             _groupControlTransform.BeforeWrite(control);
             foreach (var transform in _templateTransforms.Reverse())
